@@ -14,6 +14,20 @@ No Xcode project or full Xcode installation is required. The build script compil
 
 ## Install the app and CLI
 
+### Prebuilt npm installation (recommended)
+
+Published releases include prebuilt Apple Silicon and Intel app bundles. This is the simplest installation path and does not require Xcode or Xcode Command Line Tools:
+
+```bash
+npm install -g @sally1913105/agent-notify@latest
+```
+
+The npm package installs the app, the `agent-notify` CLI, and the Skill for Codex, Claude Code, and Cursor. It supports macOS only. npm lifecycle scripts must be enabled (do not use `--ignore-scripts`).
+
+The package version must match a GitHub release tag (`1.0.0` uses `v1.0.0`). The release workflow builds separate Apple Silicon and Intel archives. Until a release is published, use the build-from-source instructions below.
+
+### Build from source
+
 Clone the repository, then run:
 
 ```bash
@@ -176,3 +190,18 @@ integrations/                    Compatibility Skill and agent-specific template
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Publishing
+
+Maintainers can publish a new prebuilt version with:
+
+```bash
+npm version patch
+git push origin main --follow-tags
+```
+
+After the GitHub Actions release completes, publish the matching npm package:
+
+```bash
+npm publish --access public
+```

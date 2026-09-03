@@ -2,7 +2,7 @@
 # Wire AgentNotify into your agents.
 #
 #   bash scripts/install_integrations.sh
-#       Install the skill for Codex, Kiro, and Claude Code (additive, reversible).
+#       Install the skill for Codex, Cursor, Kiro, and Claude Code (additive, reversible).
 #
 #   bash scripts/install_integrations.sh --claude-hooks
 #       Also merge Stop / Notification hooks into ~/.claude/settings.json, so

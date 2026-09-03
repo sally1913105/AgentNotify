@@ -1,0 +1,30 @@
+{
+  "name": "@sally1913105/agent-notify",
+  "version": "1.0.0",
+  "description": "Native macOS notifications for AI coding agents",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sally1913105/AgentNotify.git"
+  },
+  "homepage": "https://github.com/sally1913105/AgentNotify",
+  "bin": {
+    "agent-notify": "bin/agent-notify.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/npm-install.js"
+  },
+  "files": [
+    "bin",
+    "skills",
+    "scripts/npm-install.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "os": [
+    "darwin"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
