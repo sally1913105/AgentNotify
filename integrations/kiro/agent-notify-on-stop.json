@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "AgentNotify on stop",
+      "trigger": "Stop",
+      "action": {
+        "type": "command",
+        "command": "__HOOK__"
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "_comment": "Merge into ~/.claude/settings.json (all projects) or .claude/settings.json (one project). __HOOK__ is replaced by scripts/install_integrations.sh with the absolute path to notify_hook.sh. Stop has no matcher support, so it always fires.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "__HOOK__",
+            "timeout": 15,
+            "statusMessage": "Notification popup"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|agent_needs_input|elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "__HOOK__",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
