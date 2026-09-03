@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentNotify"
+  short_description: "Show macOS task completion and action notifications"
+  default_prompt: "Use $agent-notify to notify me when this task is complete or needs my input."
+
+policy:
+  allow_implicit_invocation: true
