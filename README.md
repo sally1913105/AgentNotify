@@ -19,7 +19,7 @@ No Xcode project or full Xcode installation is required. The build script compil
 Published releases include prebuilt Apple Silicon and Intel app bundles. This is the simplest installation path and does not require Xcode or Xcode Command Line Tools:
 
 ```bash
-npm install -g @sally1913105/agent-notify@latest
+npm install -g @sallyhuang/agent-notify@latest
 ```
 
 The npm package installs the app, the `agent-notify` CLI, and the Skill for Codex, Claude Code, and Cursor. It supports macOS only. npm lifecycle scripts must be enabled (do not use `--ignore-scripts`).
