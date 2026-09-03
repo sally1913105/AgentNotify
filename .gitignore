@@ -2,3 +2,5 @@ build/
 .DS_Store
 *.swiftmodule
 *.dSYM/
+__pycache__/
+*.py[cod]
