@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sally1913105/AgentNotify.git"
+    "url": "git+https://github.com/sally1913105/AgentNotify.git"
   },
   "homepage": "https://github.com/sally1913105/AgentNotify",
   "bin": {
