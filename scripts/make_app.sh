@@ -68,6 +68,11 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "build/$BIN_NAME" "$APP/Contents/MacOS/$BIN_NAME"
 cp resources/Info.plist "$APP/Contents/Info.plist"
+if [[ ! -f resources/AppIcon.icns ]]; then
+    echo "==> Generating application icon..."
+    python3 scripts/generate_icon.py
+fi
+cp resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
 # Ad-hoc signature keeps macOS from complaining about an unsigned bundle and
 # gives the app a stable identity for the Accessibility permission list.
