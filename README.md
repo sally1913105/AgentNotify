@@ -24,7 +24,7 @@ npm install -g @sallyhuang/agent-notify@latest
 
 The npm package installs the app, the `agent-notify` CLI, and the Skill for Codex, Claude Code, and Cursor. It supports macOS only. npm lifecycle scripts must be enabled (do not use `--ignore-scripts`).
 
-The package version must match a GitHub release tag (`1.0.0` uses `v1.0.0`). The release workflow builds separate Apple Silicon and Intel archives. Until a release is published, use the build-from-source instructions below.
+Version 1.0.1 includes a bundled Apple Silicon app. Intel installations use the matching GitHub Release asset. Future package versions should match a GitHub release tag (`1.0.2` uses `v1.0.2`).
 
 ### Build from source
 

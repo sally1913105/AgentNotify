@@ -45,6 +45,15 @@ function download(url, destination) {
 }
 
 async function installApp() {
+  const bundledApp = path.join(packageRoot, "prebuilt", "AgentNotify.app");
+  if (architecture === "arm64" && fs.existsSync(path.join(bundledApp, "Contents", "MacOS", "AgentNotify"))) {
+    fs.mkdirSync(path.dirname(appDestination), { recursive: true });
+    fs.rmSync(appDestination, { recursive: true, force: true });
+    fs.cpSync(bundledApp, appDestination, { recursive: true });
+    console.log("Installed the bundled Apple Silicon AgentNotify.app.");
+    return;
+  }
+
   const asset = `AgentNotify-macos-${architecture}.zip`;
   const url = `https://github.com/${repository}/releases/download/${releaseTag}/${asset}`;
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "agent-notify-"));

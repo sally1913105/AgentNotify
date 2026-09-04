@@ -1,6 +1,6 @@
 {
   "name": "@sallyhuang/agent-notify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Native macOS notifications for AI coding agents",
   "license": "MIT",
   "repository": {
@@ -17,6 +17,7 @@
   "files": [
     "bin",
     "skills",
+    "prebuilt/AgentNotify.app",
     "scripts/npm-install.js",
     "README.md",
     "LICENSE"
