@@ -4,7 +4,7 @@ import AppKit
 /// a JSON file into the inbox and exits, which means agents never have to
 /// hand-escape JSON or know a port number.
 enum CLI {
-    static let version = "1.0.0"
+    static let version = "1.0.4"
 
     /// Returns an exit code when these arguments were a CLI invocation, or
     /// `nil` when the process should boot the menu bar UI instead.
@@ -116,13 +116,14 @@ enum CLI {
             return 2
         }
         if title.isEmpty { title = "Agent message" }
+        let normalizedLevel = MessageLevel(lenient: level).rawValue
 
         var payload: [String: Any] = [
             "id": UUID().uuidString,
             "title": title,
             "body": body,
             "agent": agent,
-            "level": MessageLevel(lenient: level).rawValue,
+            "level": normalizedLevel,
             "createdAt": ISO8601DateFormatter().string(from: Date()),
         ]
         if let project { payload["project"] = project }
@@ -139,6 +140,12 @@ enum CLI {
 
         touchLastSent(agent: agent)
         if launch { launchAppIfNeeded() }
+        let settings = Settings.load()
+        if settings.shouldSendIMessage(level: normalizedLevel) {
+            if !IMessage.send(title: title, body: body, recipient: settings.iMessageRecipient) {
+                FileHandle.standardError.write(Data("agent-notify: iMessage forwarding failed; local notification was queued\n".utf8))
+            }
+        }
         if !quiet { print("queued \(url.lastPathComponent)") }
         return 0
     }
@@ -238,6 +245,7 @@ enum CLI {
           position      : \(settings.position.rawValue) · margin \(Int(settings.margin)) · width \(Int(settings.cardWidth))
           window level  : \(settings.alwaysOnTop ? "statusBar (above Dock and normal windows)" : "floating")
           target screen : \(settings.screen)
+          iMessage      : \(settings.iMessageEnabled ? "enabled" : "disabled") · levels \(settings.iMessageLevels.joined(separator: ","))
         """)
 
         for (index, screen) in NSScreen.screens.enumerated() {

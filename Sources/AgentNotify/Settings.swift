@@ -44,6 +44,10 @@ struct Settings {
     var historyLimit = 60
     /// Esc closes every visible card, not just the newest one.
     var escClosesAll = true
+    /// Optional forwarding to the macOS Messages app. Disabled by default.
+    var iMessageEnabled = false
+    var iMessageRecipient = ""
+    var iMessageLevels = ["action", "error"]
 
     static func load() -> Settings {
         var s = Settings()
@@ -69,6 +73,13 @@ struct Settings {
         if let v = json["gap"] as? Int { s.gap = max(0, min(60, Double(v))) }
         if let v = json["historyLimit"] as? Int { s.historyLimit = max(5, min(500, v)) }
         if let v = json["escClosesAll"] as? Bool { s.escClosesAll = v }
+        if let messages = json["imessage"] as? [String: Any] {
+            if let v = messages["enabled"] as? Bool { s.iMessageEnabled = v }
+            if let v = messages["recipient"] as? String { s.iMessageRecipient = v.trimmingCharacters(in: .whitespacesAndNewlines) }
+            if let v = messages["levels"] as? [String] {
+                s.iMessageLevels = v.map { MessageLevel(lenient: $0).rawValue }
+            }
+        }
         return s
     }
 
@@ -91,6 +102,11 @@ struct Settings {
             "gap": d.gap,
             "historyLimit": d.historyLimit,
             "escClosesAll": d.escClosesAll,
+            "imessage": [
+                "enabled": d.iMessageEnabled,
+                "recipient": d.iMessageRecipient,
+                "levels": d.iMessageLevels,
+            ],
         ]
 
         var merged: [String: Any] = defaults
@@ -106,5 +122,9 @@ struct Settings {
                                                  options: [.prettyPrinted, .sortedKeys]) {
             try? data.write(to: Paths.configFile, options: .atomic)
         }
+    }
+
+    func shouldSendIMessage(level: String) -> Bool {
+        iMessageEnabled && !iMessageRecipient.isEmpty && iMessageLevels.contains(MessageLevel(lenient: level).rawValue)
     }
 }

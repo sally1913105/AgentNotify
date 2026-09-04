@@ -28,6 +28,20 @@ agent-notify send --agent <agent-name> --level <level> \
 
 Check the installation with `agent-notify doctor`.
 
+## Optional iMessage forwarding
+
+AgentNotify can forward selected cards through macOS Messages to a configured iMessage recipient. It is disabled by default. Enable it in `~/Library/Application Support/AgentNotify/config.json`:
+
+```json
+"imessage": {
+  "enabled": true,
+  "recipient": "you@example.com",
+  "levels": ["action", "error"]
+}
+```
+
+The Mac must be signed in to Messages. On the first forwarded message, allow AgentNotify to control Messages in the macOS automation prompt. Keep credentials and private source code out of forwarded message bodies.
+
 ## Levels
 
 | Level | Use | Behavior |

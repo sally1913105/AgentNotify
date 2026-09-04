@@ -24,7 +24,7 @@ npm install -g @sallyhuang/agent-notify@latest
 
 The npm package installs the app, the `agent-notify` CLI, and the Skill for Codex, Claude Code, and Cursor. It supports macOS only. npm lifecycle scripts must be enabled (do not use `--ignore-scripts`).
 
-Version 1.0.3 includes a bundled Apple Silicon app with the Message Check application icon. Intel installations use the matching GitHub Release asset. Each package version matches its GitHub release tag.
+Version 1.0.4 includes optional macOS Messages/iMessage forwarding and the Message Check application icon. Intel installations use the matching GitHub Release asset. Each package version matches its GitHub release tag.
 
 ### Build from source
 
@@ -158,6 +158,27 @@ Configuration is stored at `~/Library/Application Support/AgentNotify/config.jso
 | `cardWidth` / `margin` / `gap` | `380` / `16` / `10` | Card width, screen margin, and stack gap |
 | `escClosesAll` | `true` | Hide all cards or only the newest card on `Esc` |
 | `historyLimit` | `60` | Number of messages retained in history |
+
+## Optional iMessage forwarding
+
+AgentNotify can forward selected notifications through the macOS Messages app. This lets the message continue through iMessage to your iPhone and Apple Watch. It is disabled by default and only runs on the Mac where Messages is signed in.
+
+1. Open the configuration file from the menu, or edit `~/Library/Application Support/AgentNotify/config.json`.
+2. Set the `imessage` block, replacing the recipient with your iMessage phone number or Apple Account email:
+
+```json
+"imessage": {
+  "enabled": true,
+  "recipient": "you@example.com",
+  "levels": ["action", "error"]
+}
+```
+
+3. Choose **Reload Configuration** in the menu.
+4. Send a test `action` notification. macOS will ask whether AgentNotify may control Messages; choose **Allow**.
+5. In the iPhone Watch app, enable Messages notifications for the paired Apple Watch.
+
+Only the configured levels are forwarded. Keep the recipient and message content private, and do not put credentials or private source code in forwarded messages. The Mac must be awake, signed in to Messages, and connected to the internet.
 
 ## How it works
 
